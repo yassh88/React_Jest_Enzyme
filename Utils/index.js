@@ -1,2 +1,2 @@
 
- export const findByDataTest = ((component, dataTest) => component.find(dataTest));
+ export const findByDataTest = ((component, attr) =>component.find(`[data-test='${attr}']`));

@@ -12,11 +12,11 @@ describe('Header Component', () => {
   beforeEach(() => {component = setup()});
 
   it('Header Rendered',()=> 
-    expect(findByDataTest(component,`[data-test='headerComponent']`).length).toBe(1)
+    expect(findByDataTest(component,`headerComponent`).length).toBe(1)
   );
 
   it('Log Rendered',()=>
-    expect(findByDataTest(component,`[data-test='logoIMG']`).length).toBe(1)
+    expect(findByDataTest(component,`logoIMG`).length).toBe(1)
   );
 });
 
