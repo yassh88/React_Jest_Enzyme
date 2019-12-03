@@ -10,6 +10,7 @@ const setup = ((porps) => {
 });
 
 describe('SharedButton Component', () => {
+
   describe('Check props', () => {
     it('Should not throw props type warning', () => {
       var expectedProps = {
@@ -24,14 +25,26 @@ describe('SharedButton Component', () => {
   });
 
   describe('Render', () => {
-    it('Shared Button Rendered', () => {
-      var expectedProps = {
-        buttonText: 'TestShare',
-        emitEvent: function(){
+    var sharedBtn;
+    let mockFunction;
+      beforeEach(() => {
+        mockFunction = jest.fn()
+        var expectedProps = {
+          buttonText: 'TestShare',
+          emitEvent: mockFunction,
         }
-      }
-      var sharedBtn = setup(expectedProps);
+        sharedBtn = setup(expectedProps);
+      });
+    it('Shared Button Rendered', () => {
       expect(findByDataTest(sharedBtn, 'buttonComponent').length).toBe(1)
+    });
+
+    it('Should emit callback on click event', () => {
+      const btn = findByDataTest(sharedBtn, 'buttonComponent');
+      btn.simulate('click');
+      const callBack = mockFunction.mock.calls.length;
+      expect(callBack).toBe(1);
+      
     });
   });
     

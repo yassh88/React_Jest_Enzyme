@@ -11,7 +11,7 @@ class ListItem extends Component {
         }
 
         return(
-            <div data-test="listItemComponent">
+            <div data-test="listItemComponent" style={{textAlign: 'left'}}>
                 <h2 data-test="componentTitle">{title}</h2>
                 <div data-test="componentDesc">
                     {desc}

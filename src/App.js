@@ -18,69 +18,64 @@ const tempArr = [{
   onlineStatus: true
 }];
 
-const initialState = {
-  hideBtn: false
-};
 
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      ...initialState
+      hideBtn: false
     }
     this.fetch = this.fetch.bind(this);
   }
 
-  fetch(){
+  fetch = () => {
     this.props.fetchPosts();
-    this.exampleMethod_updatesState();
+    this.updatesState();
   }
 
-  exampleMethod_updatesState() {
+  updatesState() {
     const { hideBtn } = this.state;
     this.setState({
       hideBtn: !hideBtn
     });
   }
 
-  exampleMethod_returnsAValue(number) {
+  returnsTestValue(number) {
     return number + 1;
   }
 
   render() {
-    const { posts } = this.props;
-    const { hideBtn } = this.state;
+    let listItem = '';
+    let sharedButton = ''
 
-    const configButton = {
-      buttonText: 'Get posts',
-      emitEvent: this.fetch
+    if(this.props.posts.length > 0 ){
+    const items=  this.props.posts.map((post, index) => {
+        const { title, body } = post;
+        const configListItem = {
+          title,
+          desc: body
+        };
+        return (
+          <ListItem key={index} {...configListItem} />
+        )
+      });
+      listItem =  <div>{items} </div>
     }
 
+    if(!this.state.hideBtn){
+      sharedButton =<SharedButton 
+      buttonText= 'Get posts'
+      emitEvent={this.fetch}
+    />
+    }
     return (
       <div className="App" data-test="appComponent">
         <Header />
         <section className="main">
-          <Headline header="Posts" desc="Click the button to render posts!" tempArr={tempArr} />
-          
-          {!hideBtn &&
-            <SharedButton {...configButton} />
-          }
-          
-          {posts.length > 0 &&
-            <div>
-              {posts.map((post, index) => {
-                const { title, body } = post;
-                const configListItem = {
-                  title,
-                  desc: body
-                };
-                return (
-                  <ListItem key={index} {...configListItem} />
-                )
-              })}
-            </div>
-          }
+          <Headline header="Test React App with Jest & Enzyem" desc="Click the button to render data!" tempArr={tempArr} />
+          {sharedButton}          
+          {listItem}
         </section>
       </div>
     );
